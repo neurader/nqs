@@ -37,11 +37,6 @@ func Start(name string, command []string) {
 	cmd.Stdout = logFile
 	cmd.Stderr = logFile
 
-	cmd.SysProcAttr = &syscall.SysProcAttr{}
-	if runtime.GOOS != "windows" {
-		cmd.SysProcAttr.Setpgid = true
-	}
-
 	err = cmd.Start()
 	if err != nil {
 		fmt.Println("Error:", err)
