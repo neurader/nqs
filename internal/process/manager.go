@@ -6,10 +6,6 @@ import (
 	"github.com/neurader/nqs/internal/state"
 )
 
-if !IsRunning(p.Pid) {
-	status = "🔴 stopped"
-}
-
 func List() {
 	data := state.Load()
 
@@ -23,7 +19,7 @@ func List() {
 
 	for name, p := range data {
 		status := "🟢 running"
-		if !isRunning(p.Pid) {
+		if !IsRunning(p.Pid) {
 			status = "🔴 stopped"
 		}
 		fmt.Printf("[%s] %s (PID: %d)\n", status, name, p.Pid)
