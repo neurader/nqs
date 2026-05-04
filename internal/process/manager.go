@@ -2,14 +2,12 @@ package process
 
 import (
 	"fmt"
-	"syscall"
 
 	"github.com/neurader/nqs/internal/state"
 )
 
-func isRunning(pid int) bool {
-	err := syscall.Kill(pid, 0)
-	return err == nil
+if !IsRunning(p.Pid) {
+	status = "🔴 stopped"
 }
 
 func List() {
