@@ -15,7 +15,8 @@ func isRunning(pid int) bool {
 func List() {
 	data := state.Load()
 
-	fmt.Println("\n📦 NQS Dashboard\n")
+	fmt.Println("📦 NQS Dashboard")
+	fmt.Println()
 
 	if len(data) == 0 {
 		fmt.Println("No processes running")
