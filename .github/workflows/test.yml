@@ -1,0 +1,35 @@
+name: Test & Validate NQS
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      # Ensures go.mod/go.sum are clean
+      - name: Tidy modules
+        run: go mod tidy
+
+      # Build check (this is the most important)
+      - name: Build
+        run: go build ./...
+
+      # Optional but recommended
+      - name: Vet (basic lint)
+        run: go vet ./...
+
+      # If you add tests later
+      - name: Run tests
+        run: go test ./...
