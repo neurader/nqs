@@ -1,0 +1,32 @@
+package process
+
+import (
+	"fmt"
+	"syscall"
+
+	"github.com/neurader/nqs/internal/state"
+)
+
+func isRunning(pid int) bool {
+	err := syscall.Kill(pid, 0)
+	return err == nil
+}
+
+func List() {
+	data := state.Load()
+
+	fmt.Println("\n📦 NQS Dashboard\n")
+
+	if len(data) == 0 {
+		fmt.Println("No processes running")
+		return
+	}
+
+	for name, p := range data {
+		status := "🟢 running"
+		if !isRunning(p.Pid) {
+			status = "🔴 stopped"
+		}
+		fmt.Printf("[%s] %s (PID: %d)\n", status, name, p.Pid)
+	}
+}
